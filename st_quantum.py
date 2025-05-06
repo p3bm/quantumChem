@@ -4,18 +4,6 @@ from rdkit.Chem import AllChem, Draw
 from pyscf import gto, dft, scf, mp
 from pyscf.geomopt import geometric_solver
 import numpy as np
-import py3Dmol
-
-def show_3d_structure(xyz_str):
-    xyz_block = f"{len(xyz_str.splitlines())}\n\n{xyz_str}"
-    viewer = py3Dmol.view(width=400, height=300)
-    viewer.addModel(xyz_block, 'xyz')
-    viewer.setStyle({'stick': {}})
-    viewer.zoomTo()
-
-    # Get the HTML/JS to embed
-    viewer_html = viewer._js()
-    return viewer_html
 
 # Convert SMILES to XYZ coordinates
 def smiles_to_xyz(smiles):
@@ -187,10 +175,6 @@ def main():
             if optimization == "Geometry Optimization" and result.get('Optimized XYZ'):
                 st.subheader("Optimized Geometry (XYZ)")
                 st.text(result['Optimized XYZ'])
-
-                st.subheader("3D Structure")
-                viewer_html = show_3d_structure(result['Optimized XYZ'])
-                st.components.v1.html(viewer_html, height=300)
                 
 if __name__ == "__main__":
     main()
