@@ -1,6 +1,6 @@
 import streamlit as st
 from rdkit import Chem
-from rdkit.Chem import AllChem, Draw
+from rdkit.Chem import AllChem
 from pyscf import gto, dft, scf, mp
 from pyscf.geomopt import geometric_solver
 import numpy as np
@@ -124,8 +124,6 @@ def main():
     else:
         smiles = st.text_input("Enter SMILES string", "CCO")
         xyz, mol = smiles_to_xyz(smiles)
-        if mol:
-            st.image(Draw.MolToImage(mol), caption="Molecular Structure")
 
     charge = st.number_input("Molecular Charge", value=0, step=1)
     multiplicity = st.number_input("Spin Multiplicity", value=1, step=1, min_value=1)
